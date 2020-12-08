@@ -8,7 +8,7 @@
             "Type": "AWS::EC2::KeyPair::KeyName"
         },
         "LatestAmiId": {
-            "Type": "AWS::SSM:Parameter::Value<AWS::EC2::Image::Id>",
+            "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
             "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
         }
     },
@@ -93,7 +93,7 @@
             "DependsOn":"igwattachmentvpc1",
             "Properties":{
                 "DestinationCidrBlock" : "0.0.0.0/0",
-                "RouteTableId" : { "Ref" : "myRouteTable" },
+                "RouteTableId" : { "Ref" : "rtpublic" },
                 "GatewayId" : { "Ref" : "igwvpc1" }
             }
         }
