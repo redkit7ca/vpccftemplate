@@ -80,6 +80,13 @@
                 "InternetGatewayId": {"Ref": "igwvpc1"},
                 "VpcId": {"Ref": "vpc1"}
             }
+        },
+        "rtpublic":{
+            "Type":"AWS::EC2::RouteTable",
+            "Properties":{
+                "VpcId":{"Ref":"vpc1"},
+                "Tags":[{"Key":"Name", "Value":"RT-Public-VPC1"}]
+            }
         }
     }
 }
