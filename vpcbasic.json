@@ -87,6 +87,15 @@
                 "VpcId":{"Ref":"vpc1"},
                 "Tags":[{"Key":"Name", "Value":"RT-Public-VPC1"}]
             }
+        },
+        "rtpublicroute":{
+            "Type":"AWS::EC2::Route",
+            "DependsOn":"igwattachmentvpc1",
+            "Properties":{
+                "DestinationCidrBlock" : "0.0.0.0/0",
+                "RouteTableId" : { "Ref" : "myRouteTable" },
+                "GatewayId" : { "Ref" : "igwvpc1" }
+            }
         }
     }
 }
