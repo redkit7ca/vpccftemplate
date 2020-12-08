@@ -11,7 +11,7 @@
         },
         // A specific AMI (Amazon Machine Images) will be used as a paramater.
         "LatestAmiId": {
-            "Type": "AWS::SSM:Parameter::Value<AWS::EC2::Image::Id>",
+            "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
             "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
         }
     },
@@ -97,6 +97,22 @@
             "Properties": {
                 "InternetGatewayId": {"Ref": "igwvpc1"},// igwvpc1 assingned to vpc1.
                 "VpcId": {"Ref": "vpc1"}
+            }
+        },
+        "rtpublic":{ // A public route table created with the tags.
+            "Type":"AWS::EC2::RouteTable",
+            "Properties":{
+                "VpcId":{"Ref":"vpc1"},
+                "Tags":[{"Key":"Name", "Value":"RT-Public-VPC1"}]
+            }
+        },
+        "rtpublicroute":{ 
+            "Type":"AWS::EC2::Route", // Add a route
+            "DependsOn":"igwattachmentvpc1",// A gateway added that route.
+            "Properties":{
+                "DestinationCidrBlock" : "0.0.0.0/0",//Open for the internet
+                "RouteTableId" : { "Ref" : "rtpublic" },//Refers to rtpublic for this route.
+                "GatewayId" : { "Ref" : "igwvpc1" }//Refers to Internet Gateway for this route.
             }
         }
     }
